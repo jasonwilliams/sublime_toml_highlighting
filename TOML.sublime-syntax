@@ -29,10 +29,13 @@ variables:
   oct_int: '0o[0-7](?:[0-7]|_[0-7])*'
   bin_int: '0b[0-1](?:[0-1]|_[0-1])*'
 
-  # frac = "." DIGIT *( DIGIT / "_" DIGIT )
-  frac: '\. [0-9] (?: [0-9] | _ [0-9] )*'
-  # exp = ("e" / "E") integer
-  exp: '[eE] {{integer}}'
+  # zero-prefixable-int = DIGIT *( DIGIT / underscore DIGIT )
+  zero_prefixable_int: '[0-9] (?: [0-9] | _ [0-9] )*'
+  # frac = decimal-point zero-prefixable-int
+  frac: '\. {{zero_prefixable_int}}'
+  # exp = "e" float-exp-part
+  # float-exp-part = [ minus / plus ] zero-prefixable-int
+  exp: '[eE] [\+\-]? {{zero_prefixable_int}}'
 
   # date-time      = offset-date-time / local-date-time / local-date / local-time
   date_time: '{{offset_date_time}} | {{local_date_time}} | {{local_date}} | {{local_time}}'
@@ -127,9 +130,10 @@ contexts:
       pop: true
 
   float:
-    # float = integer ( frac / ( frac exp ) / exp )
-    # frac = "." DIGIT *( DIGIT / "_" DIGIT )
-    # exp = ("e" / "E") integer
+    # float = float-int-part ( exp / frac [ exp ] )
+    # float =/ special-float
+    # special-float = [ minus / plus ] ( inf / nan )
+    # float-int-part = dec-int
     - match: |-
         (?x)
           (?<!\w)
