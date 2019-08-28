@@ -53,7 +53,7 @@ variables:
   # time-numoffset = ( "+" / "-" ) time-hour ":" time-minute
   time_numoffset: '[+-] {{time_hour}} : {{time_minute}}'
   # time-offset    = "Z" / time-numoffset
-  time_offset: '(?: Z | {{time_numoffset}} )'
+  time_offset: '(?: [zZ] | {{time_numoffset}} )'
   # partial-time   = time-hour ":" time-minute ":" time-second [time-secfrac]
   partial_time: '{{time_hour}} : {{time_minute}} : {{time_second}} (?: {{time_secfrac}} )?'
   # full-date      = date-fullyear "-" date-month "-" date-mday
@@ -61,9 +61,9 @@ variables:
   # full-time      = partial-time time-offset
   full_time: '{{partial_time}} {{time_offset}}'
   # offset-date-time = full-date T|%20 full-time
-  offset_date_time: '{{full_date}} [T ] {{full_time}}'
+  offset_date_time: '{{full_date}} [tT ] {{full_time}}'
   # local-date-time = full-date T|%20 partial-time
-  local_date_time: '{{full_date}} [T ] {{partial_time}}'
+  local_date_time: '{{full_date}} [tT ] {{partial_time}}'
   # local-date = full-date
   local_date: '{{full_date}}'
   # local-time = partial-time
