@@ -425,6 +425,10 @@ a = 5e+22
 #   ^^^^^ constant.numeric.float
 a = 1e6
 #   ^^^ constant.numeric.float
+a = 1e06
+#   ^^^^ constant.numeric.float
+a = 1e+06
+#   ^^^^^ constant.numeric.float
 a = -2E-2
 #   ^ keyword.operator.arithmetic
 #   ^^^^^ constant.numeric.float
