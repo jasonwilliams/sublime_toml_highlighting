@@ -1,4 +1,4 @@
-# SYNTAX TEST "Packages/sublime_toml_highlighting/TOML.sublime-syntax"
+# SYNTAX TEST "Packages/TOML/TOML.sublime-syntax"
 
 # This is a TOML document. Boom.
 # <- comment.line.number-sign punctuation.definition.comment
