@@ -9,6 +9,7 @@ file_extensions:
   - Cargo.lock
   - Gopkg.lock
   - Pipfile
+  - pdm.lock
   - poetry.lock
 
 scope: source.toml
