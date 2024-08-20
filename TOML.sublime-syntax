@@ -274,6 +274,9 @@ contexts:
       scope: punctuation.separator.inline-table.toml
       set:
         - match: '{{ws}}'
+        - match: '\}'
+          scope: invalid.illegal.table-end.toml
+          pop: true
         - match: ''
           set: [inline-keyval-sep, key]
     - match: '(?=\w+|.)'
