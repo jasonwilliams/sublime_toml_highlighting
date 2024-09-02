@@ -11,6 +11,7 @@ file_extensions:
   - Pipfile
   - pdm.lock
   - poetry.lock
+  - uv.lock
 
 scope: source.toml
 
