@@ -886,6 +886,23 @@ t = {b=true, i=1, f=1.0, dt=1979-05-27T07:32:00Z, s1='s', s2="s", s3='''s''', s4
 #                                                                                                     ^ constant.numeric.integer
 #                                                                                                      ^^ punctuation.definition.inline-table.end
 
+t = {
+    b=true,
+    i=1,
+}
+
+t = {
+    b=true,
+    i=1
+}
+
+t = {
+}
+
+t = {key=1,}
+
+t = {a=1, }
+
 #-----------------------------------------------------------------------------
 # Invalid inline table
 #-----------------------------------------------------------------------------
@@ -894,13 +911,6 @@ t = {,}
 t = {=}
 #    ^ punctuation.definition.key-value
 #     ^ invalid.illegal
-t = {
-}
-#<- invalid.illegal
-t = {key=1,}
-#<- meta.tag.key entity.name.tag
-#         ^ punctuation.separator.inline-table
-#          ^ invalid.illegal
 t = {key}
 #    ^^^ meta.tag.key entity.name.tag
 #       ^ invalid.illegal
@@ -918,9 +928,6 @@ t = {!=123}
 #     ^ punctuation.definition.key-value
 #      ^^^ constant.numeric.integer
 #         ^ punctuation.definition.inline-table.end
-t = {a=1, }
-#       ^ punctuation.separator.inline-table
-#         ^ invalid.illegal.table-end
 [test] # Verify that the illegal scope has popped
 #^^^^ meta.tag.table.toml entity.name.table.toml
 #    ^ punctuation.definition.table.end.toml
