@@ -285,7 +285,7 @@ contexts:
       set:
         - match: '{{ws}}'
         - match: '\}'
-          scope: invalid.illegal.table-end.toml
+          scope: punctuation.definition.inline-table.end.toml
           pop: true
         - match: ''
           set: [inline-keyval-sep, key]
