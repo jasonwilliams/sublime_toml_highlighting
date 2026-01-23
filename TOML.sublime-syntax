@@ -258,10 +258,19 @@ contexts:
           set: [inline-keyval-sep, key]
 
   inline-keyval-sep:
+    - include: comments
+    - match: '[ \t\n]*(\w+){{ws}}(=){{ws}}'
+      captures:
+        1: entity.name.tag.toml
+        2: punctuation.definition.key-value.toml
+      set: [inline-table-keyvals, data-types]
     - match: '{{ws}}(=){{ws}}'
       captures:
         1: punctuation.definition.key-value.toml
       set: [inline-table-keyvals, data-types]
+    - match: '{{wsnl}}\}'
+      scope: punctuation.definition.inline-table.end.toml
+      pop: true
     - match: '(?=\w+|.)'
       scope: invalid.illegal.inline-sep.toml
       pop: true
