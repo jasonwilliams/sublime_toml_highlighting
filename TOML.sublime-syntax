@@ -17,7 +17,7 @@ scope: source.toml
 
 variables:
   ws: '[ \t]*'
-  wsnl: '([ \t\n])*'
+  wsnl: '(?:[ \t\n]*)'
 
   # Used to detect the possible start of a key.
   peek_key_start: '(?=[A-Za-z0-9_''"-])'
@@ -249,36 +249,44 @@ contexts:
     - match: '\{'
       scope: punctuation.definition.inline-table.begin.toml
       set:
-        - match: '{{ws}}'
+        - match: '{{wsnl}}'
+        - include: comments
         - match: '\}'
           # Empty table.
           scope: punctuation.definition.inline-table.end.toml
           pop: true
-        - match: ''
+        - match: '(?=\S)'
           set: [inline-keyval-sep, key]
 
   inline-keyval-sep:
     - match: '{{ws}}(=){{ws}}'
       captures:
         1: punctuation.definition.key-value.toml
-      set: [inline-table-keyvals, data-types]
+      set:
+        - match: '\}'
+          scope: invalid.illegal.inline-sep.toml
+          pop: true
+        - match: '(?=\S)'
+          set: [inline-table-keyvals, data-types]
     - match: '(?=\w+|.)'
       scope: invalid.illegal.inline-sep.toml
       pop: true
 
   inline-table-keyvals:
-    - match: '{{ws}}'
+    - match: '{{wsnl}}'
+    - include: comments
     - match: '\}'
       scope: punctuation.definition.inline-table.end.toml
       pop: true
     - match: ','
       scope: punctuation.separator.inline-table.toml
       set:
-        - match: '{{ws}}'
+        - match: '{{wsnl}}'
+        - include: comments
         - match: '\}'
-          scope: invalid.illegal.table-end.toml
+          scope: punctuation.definition.inline-table.end.toml
           pop: true
-        - match: ''
+        - match: '(?=\S)'
           set: [inline-keyval-sep, key]
     - match: '(?=\w+|.)'
       scope: invalid.illegal.inline-key.toml
